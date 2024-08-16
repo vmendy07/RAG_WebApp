@@ -1,0 +1,7 @@
+Flask
+langchain-google-genai
+pillow
+pymongo
+langchain_community
+fastembed
+python-dotenv
