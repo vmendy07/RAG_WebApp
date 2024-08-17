@@ -220,7 +220,7 @@
                     displayMessage('You', message);
                     input.value = '';
                     // Send the message to the backend API and get a response
-                    fetch('YOUR_BACKEND_API_ENDPOINT', {
+                    fetch('/api/query', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

@@ -1,9 +1,12 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-def load_and_process_document(pdf_path):
-    loader = PyPDFLoader(pdf_path)
-    pages = loader.load()
+
+def load_and_process_document(data):
+    # Convert JSON data to text (e.g., player names, stats, etc.)
+    texts = []
+    for player in data['athletes']:
+        player_info = f"Name: {player['fullName']}, Position: {player['position']['name']}, Team: {player['team']['displayName']}"
+        texts.append({"page_content": player_info, "metadata": {}})
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
-    texts = text_splitter.split_documents(pages)
-    return texts
+    return text_splitter.split_documents(texts)

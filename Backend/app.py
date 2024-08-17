@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from document_loader import load_and_process_document
 from vector_store import setup_vector_store
 from qa_system import setup_qa_system
+from espn_api import get_players, get_player_stats
 import os
 from dotenv import load_dotenv
 
@@ -9,10 +10,12 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Path to your document
-PDF_PATH = 'docs/example_document.pdf'
+# Load NFL data from ESPN API
+players_data = get_players()
+player_stats_data = get_player_stats()
 
-texts = load_and_process_document(PDF_PATH)
+# Load the data into the RAG system (convert JSON to text chunks)
+texts = load_and_process_document(players_data)
 docsearch = setup_vector_store(texts)
 qa_system = setup_qa_system(docsearch)
 
