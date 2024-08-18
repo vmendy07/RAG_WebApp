@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from document_loader import load_and_process_document
 from vector_store import setup_vector_store
 from qa_system import setup_qa_system
@@ -9,6 +10,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+# Load NFL data from ESPN API
+players_data = get_players()
+print("Players Data:", players_data)  # Print the data retrieved from ESPN API
+
+player_stats_data = get_player_stats()
+print("Player Stats Data:", player_stats_data)  # Print the player stats data
 
 # Load NFL data from ESPN API
 players_data = get_players()
